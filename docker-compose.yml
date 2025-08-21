@@ -8,7 +8,14 @@ services:
       DATABASE_URL: ${DATABASE_URL}
       AUTH_SECRET: ${AUTH_SECRET}
       AUTH_DISCORD_ID: ${AUTH_DISCORD_ID}
-      AUTH_DISCORD_SECRET: AUTH_DISCORD_SECRET
+      AUTH_DISCORD_SECRET: ${AUTH_DISCORD_SECRET}
+    volumes:
+      # Mount source code for hot reloading
+      - .:/app
+      # Use anonymous volume for node_modules to avoid conflicts
+      - /app/node_modules
+      # Mount Next.js cache for better performance
+      - ./.next:/app/.next
     depends_on:
       - db
 
